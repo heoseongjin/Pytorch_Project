@@ -1,8 +1,8 @@
 # Pytorch Project
 
-##### /Pytorch_Yolo
+##### `/Pytorch_Yolo`
 
-##### /Pytorch_Audio
+##### `/Pytorch_Audio`
 
 ## Index
 
@@ -62,7 +62,7 @@
 
 - ##### conda 패키지 업데이트
 
-  ​	프롬프트를 실행하면 다음과 같은 __CLI__창이 떠오른다. 파일 경로는 현재 사용자의 경로가 표시되고, 맨 좌측에는 __(base)__로 현재 활성화된 환경이름이 출력된다.(현재는 base로 기본환경이다.)
+  ​	프롬프트를 실행하면 다음과 같은 **CLI**창이 떠오른다. 파일 경로는 현재 사용자의 경로가 표시되고, 맨 좌측에는 **(base)**로 현재 활성화된 환경이름이 출력된다.(현재는 base로 기본환경이다.)
 
   ![prompt_1](./images/prompt_1.PNG)
 
@@ -88,7 +88,68 @@
 
   `y`를 입력하여 진행하면 생성이 된다.
 
+  다음은 설치장면이다.
+
+  ![prompt_3](./images/prompt_3.PNG)
+
+
+
+- ##### 가상환경 활성화/비활성화
+
+  ```shell
+  (base)C:\Users\(username)> conda activate (가상환경 이름)
+  ```
+
+  `conda activate`를 통해 설치 되어있는 가상환경에 접속(활성화)할 수 있다. 활성화가 되었을 경우 다음과 같이 명령줄 맨 좌측에 **활성화된 가상환경명**이 표시된다.
+
+  ```shell
+  (testVenv)C:\Users\(username)> conda deactive
+  ```
+
+  이와 같이 `conda deactivate`를 사용하여 가상환경에서 탈출(비활성화)할 수도 있다.
+
+  
+
 ## 4. Pytorch 설치
 
+> **Pytorch**는 **Facebook의 인공지능 연구팀**이 개발한 **Python을 위한 오픈소스 머신러닝 라이브러리**이다. **다양한 모듈을 제공**한다. 
+>
+> > **그래프 형태**가 **Tensorflow**와 달리 **동적으로 생성**된다는 장점이 있다.
 
+![pytorch_logo](./images/Pytorch_logo.png)
+
+
+
+설치 사이트 : [Pytorch.org](www.pytorch.org)
+
+- ##### 위 사이트에 접속한 뒤, 자신의 환경에 맞게 체크를한다
+
+  저자의 경우 
+
+  - **Python** = 3.6
+  - OS = Windows
+  - PIP를 사용할 예정
+  - GPU가 없기에 당연히 CUDA도 없음
+
+  위와 같은 이유로 다음과 같이 설정하였다.
+
+  ![pytorch_1](./images/pytorch_1.PNG)
+
+
+
+- ##### pip를 사용하여 Pytorch 설치
+
+  ```shell
+  (testVenv)C:\Users\(username)> pip install --upgrade pip
+  ```
+
+  **pip를 업그레이드** 한다. 결과는 다음과 같다.
+
+  ![pytorch_2](./images/pytorch_2.PNG)
+
+  (이미 최신 버전이라 저런 결과가 나왔다.)
+
+
+
+​		[Pytorch.org](www.pytorch.org) 의 `Run this Command`부분의 명령줄을 복사하여 실행하면 환경에 맞는 **Pytorch가 설치**된다.![pytorch_3](./images/pytorch_3.PNG)
 
