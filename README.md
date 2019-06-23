@@ -64,7 +64,7 @@
 
   ​	프롬프트를 실행하면 다음과 같은 __CLI__창이 떠오른다. 파일 경로는 현재 사용자의 경로가 표시되고, 맨 좌측에는 __(base)__로 현재 활성화된 환경이름이 출력된다.(현재는 base로 기본환경이다.)
 
-  ![prompt_1](.\images\prompt_1.png)
+  ![prompt_1](./images/prompt_1.png)
 
   ```shell
   (base)C:\Users\(username)> conda update
@@ -84,7 +84,7 @@
 
   실행 예시는 다음과 같다.
 
-  ![prompt_2](.\images\prompt_2.png)
+  ![prompt_2](./images/prompt_2.png)
 
   `y`를 입력하여 진행하면 생성이 된다.
 
