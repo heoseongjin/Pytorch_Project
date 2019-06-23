@@ -54,7 +54,7 @@
 
 * 설치한 Anaconda Prompt를 실행한다.
 
-![env_1](./images/env_1.png)
+![env_1](./images/env_1.PNG)
 
 
 
