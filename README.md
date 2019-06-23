@@ -28,6 +28,8 @@
 >
 > > 또한, 가상환경을 구성하여 여러 버전과 라이브러리를 갖춘 **Python3**를 사용할 수 있다.
 
+
+
 설치 사이트 : [Anaconda Install](https://www.anaconda.com/distribution/)
 
 - ##### 위 사이트에 접속하여 Window - 64bit 파일을 설치한다.
@@ -62,7 +64,7 @@
 
   ​	프롬프트를 실행하면 다음과 같은 __CLI__창이 떠오른다. 파일 경로는 현재 사용자의 경로가 표시되고, 맨 좌측에는 __(base)__로 현재 활성화된 환경이름이 출력된다.(현재는 base로 기본환경이다.)
 
-  ![prompt_1](.\images\prompt_1.PNG)
+  ![prompt_1](.\images\prompt_1.png)
 
   ```shell
   (base)C:\Users\(username)> conda update
@@ -82,7 +84,7 @@
 
   실행 예시는 다음과 같다.
 
-  ![prompt_2](.\images\prompt_2.PNG)
+  ![prompt_2](.\images\prompt_2.png)
 
   `y`를 입력하여 진행하면 생성이 된다.
 
