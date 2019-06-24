@@ -284,6 +284,10 @@
                                          urbansound_folder + os.sep + 'data/street_music']
     ```
 
+    `os`라이브러리를 통해 저장소에 접근하고, `os.path.exist`를 사용하여 그 폴더의 존재 여부를 알 수 있다.
+
+    만약 폴더가 존재하지 않는다면 `os.mkdir`을 사용하여 폴더를 생성해준다.
+
     
 
   - **DogSound**
@@ -331,6 +335,12 @@
                 csv.close()
     ```
 
+    `UrbanSound`폴더 중 `/Dog_bark`폴더의 파일들에 접근한다.
+
+    소리파일과 소리 위치가 담긴 `csv`파일을 통해 1초단위의 소리파일들을 생성한다.
+
+    그 파일들은 `urbansound/graph/positive`에 저장된다.
+
     
 
   - **OtherSound**
@@ -357,7 +367,11 @@
                         print('failed to load this one ^^^^^')
     ```
 
-    
+    DogSound와 유사하지만 다른 class들을 모두 `OtherSound`로 분류한다는 것이 차이점이다. `csv`파일에 접근하지 않고 소리파일의 첫 1초만을 저장한다.
+
+    그 파일들은 `urbansound/graph/negative`에 저장된다.
+
+  
 
   - **argparse**
 
@@ -369,23 +383,201 @@
         main(args)
     ```
 
-    
+    `argparse`는 명령줄 파싱 라이브러리이다.
+
+    ```shell
+    (testVenv)d:\Pytorch_Audio>python audio_preprocess --urbansound_dir UrbanSound
+    ```
+
+    위와 같이 명령어를 입력하면, `--urbansound_dir`뒤의 문자열이 파싱되어 파일경로로 입력된다.
+
+
 
 - ##### 실행 결과
 
-  - 사진들
+  ```shell
+  (testVenv)d:\Pytorch_Audio>python audio_preprocess --urbansound_dir UrbanSound
+  ```
+  
+  위의 명령어를 입력하면 다음과 같이 전처리가 진행된다.
+  
+  ![1561418574323](images/1561418574323.png)
 
-
+![1561418636020](images/1561418636020.png)
 
 ## 5. 전처리(Mfcc)
 
 - ##### Librosa
 
+  > **Librosa**는 음성 특징 추출 라이브러리로, 소리의 특징을 추출하는 것은 물론, 스펙트로그램 그래프로 변환할 수 있다.
+
 - ##### Mfcc
+
+  > **Mfcc**(Mel Frequency Cepstral Coefficient)는 **일정 구간**(Short time)식 나누어, 이 구간에 대한 **스펙트럼을 분석**하여 특징을 추출하는 기법이다.
 
 - ##### 소스 설명
 
-  - 그 막 옆에 없앤거
+  - 전체 소스(`audio_mfcc.py`)
+
+    ```python
+    import os
+    import librosa
+    import librosa.display
+    import numpy as np
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+    import matplotlib.pylab as pylab
+    
+    def main(args):
+        urbansound_folder = args.urbansound_dir
+        urbansound_graph_folder = urbansound_folder + os.sep + 'graph'
+        urbansound_graph_mfcc_folder = urbansound_folder + os.sep + 'graph_mfcc'
+        urbansound_dogbark_graph_folder = urbansound_graph_folder + os.sep + 'positive'
+        urbansound_other_graph_folder = urbansound_graph_folder + os.sep + 'negative'
+        urbansound_dogbark_graph_mfcc_folder = urbansound_graph_mfcc_folder + os.sep + 'positive'
+        urbansound_other_graph_mfcc_folder = urbansound_graph_mfcc_folder + os.sep + 'negative'
+    
+        if not os.path.exists(urbansound_graph_mfcc_folder):
+            os.mkdir(urbansound_graph_mfcc_folder)
+        if not os.path.exists(urbansound_dogbark_graph_mfcc_folder):
+            os.mkdir(urbansound_dogbark_graph_mfcc_folder)
+        if not os.path.exists(urbansound_other_graph_mfcc_folder):
+            os.mkdir(urbansound_other_graph_mfcc_folder)
+    
+    
+        for file in os.listdir(urbansound_dogbark_graph_folder):
+            filename, extension = os.path.splitext(file)
+            
+            if extension == '.wav':
+                # open sound file
+                audiopath = urbansound_dogbark_graph_folder + os.sep + file
+                print(audiopath)
+    
+                y, sr = librosa.load(audiopath)
+                S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
+    
+                log_S = librosa.amplitude_to_db(S, ref=np.max)
+                fig = plt.figure(figsize=(12, 4))
+                librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
+    
+                plt.title('mel power spectrogram')
+                # plt.colorbar(format = '%+02.0f db')
+                plt.tight_layout()
+    
+                plt.axis('off')
+                plt.xticks([]), plt.yticks([])
+                plt.subplots_adjust(left=0, bottom=0, right=1, top=1, hspace=0, wspace=0)
+    
+                plt.savefig(urbansound_dogbark_graph_mfcc_folder + '/' + filename + '.png')
+                plt.close(fig)
+    
+        for file in os.listdir(urbansound_other_graph_folder):
+            filename, extension = os.path.splitext(file)
+            if extension == '.wav':
+                # open sound file
+                audiopath = urbansound_other_graph_folder + os.sep + file
+                print(audiopath)
+    
+                y, sr = librosa.load(audiopath)
+                S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
+    
+                log_S = librosa.amplitude_to_db(S, ref=np.max)
+                fig = plt.figure(figsize=(12, 4))
+                librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
+    
+                plt.title('mel power spectrogram')
+                # plt.colorbar(format = '%+02.0f db')
+                plt.tight_layout()
+    
+                plt.axis('off')
+                plt.xticks([]), plt.yticks([])
+                plt.subplots_adjust(left=0, bottom=0, right=1, top=1, hspace=0, wspace=0)
+    
+                plt.savefig(urbansound_other_graph_mfcc_folder + '/' + filename + '.png')
+                plt.close(fig)
+    
+    if __name__ == "__main__":
+        import argparse
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--urbansound_dir', '-u', dest='urbansound_dir', required=True)
+        args = parser.parse_args()
+        main(args)
+    
+    
+    ```
+
+    `audio_mfcc.py`은 크게 4개의 기능을 한다.
+
+    1. 폴더 생성
+    2. DogSound 시각화 이미지 저장
+    3. OtherSound 시각화 이미지 저장
+
+  
+
+  
+
+  - **폴더 생성**
+
+    ```python
+    urbansound_folder = args.urbansound_dir
+        urbansound_graph_folder = urbansound_folder + os.sep + 'graph'
+        urbansound_graph_mfcc_folder = urbansound_folder + os.sep + 'graph_mfcc'
+        urbansound_dogbark_graph_folder = urbansound_graph_folder + os.sep + 'positive'
+        urbansound_other_graph_folder = urbansound_graph_folder + os.sep + 'negative'
+        urbansound_dogbark_graph_mfcc_folder = urbansound_graph_mfcc_folder + os.sep + 'positive'
+        urbansound_other_graph_mfcc_folder = urbansound_graph_mfcc_folder + os.sep + 'negative'
+    
+        if not os.path.exists(urbansound_graph_mfcc_folder):
+            os.mkdir(urbansound_graph_mfcc_folder)
+        if not os.path.exists(urbansound_dogbark_graph_mfcc_folder):
+            os.mkdir(urbansound_dogbark_graph_mfcc_folder)
+        if not os.path.exists(urbansound_other_graph_mfcc_folder):
+            os.mkdir(urbansound_other_graph_mfcc_folder)
+    ```
+
+    `audio_preprocess.py`와 유사하다.
+
+    `os`라이브러리를 통해 저장소에 접근하고, `os.path.exist`를 사용하여 그 폴더의 존재 여부를 알 수 있다.
+
+    만약 폴더가 존재하지 않는다면 `os.mkdir`을 사용하여 폴더를 생성해준다.
+
+    
+
+  - **DogSound 시각화 이미지 저장**
+
+    ```python
+     for file in os.listdir(urbansound_dogbark_graph_folder):
+            filename, extension = os.path.splitext(file)
+            
+            if extension == '.wav':
+                # open sound file
+                audiopath = urbansound_dogbark_graph_folder + os.sep + file
+                print(audiopath)
+    
+                y, sr = librosa.load(audiopath)
+                S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
+    
+                log_S = librosa.amplitude_to_db(S, ref=np.max)
+                fig = plt.figure(figsize=(12, 4))
+                librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
+    
+                plt.title('mel power spectrogram')
+                # plt.colorbar(format = '%+02.0f db')
+                plt.tight_layout()
+    
+                plt.axis('off')
+                plt.xticks([]), plt.yticks([])
+                plt.subplots_adjust(left=0, bottom=0, right=1, top=1, hspace=0, wspace=0)
+    
+                plt.savefig(urbansound_dogbark_graph_mfcc_folder + '/' + filename + '.png')
+                plt.close(fig)
+    ```
+
+    
+
+  - **OtherSound 시각화 이미지 저장**
+
+
 
 - ##### 실행 결과
 
