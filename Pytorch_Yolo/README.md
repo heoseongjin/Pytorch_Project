@@ -353,6 +353,42 @@ Pytorch_YOLO
 
 ## 5. 실행
 
-- ##### [[ 2.라이브러리 설치 ] 참고](2. 라이브러리 설치)
+- ##### [ 2.라이브러리 설치 ] 참고, 가상환경 접속
+
+- ##### Pytorch_Yolo 폴더로 접속
+
+  - 저자의 경우 **D:드라이브 Git폴더안에 Pytorch_Project폴더**가 존재한다.
+
+    ```shell
+    (testVenv)C:\Users\(username)> d:
+    ```
+
+    `d:`를 통해 **D:드라이브로 이동**한다.
+
+    ``` shell
+    (testVenv)D:\> cd Git/Pytorch_Project/Pytorch_Yolo
+    ```
+
+    `cd`(change directory)를 사용하여 **Pytorch_Yolo 폴더로 이동**한다.
+
+    ![run_1.png](images/1561371173914.png)
 
 - ##### 실행
+
+  ```shell
+  (testVenv) D:\Git\Pytorch_Project\Pytorch_Yolo> python cam_detection.py
+  ```
+
+  가상환경에서 `cam_detection.py`이 실행된다.
+
+  ![1561371595964](images/1561371595964.png)
+
+  다음과 같이 **FPS**가 출력
+
+  
+
+  ![1561371714397](images/1561371714397.png)
+
+  또 특정 사물(현재는 **remote**)(왜인지는 모르겠지만, 다른 마우스와 달리 나의 마우스는 **remote**로 인식을 함)을 코딩하면, `Detect------Detect-----....`가 출력이 되는 것을 볼 수 있다.
+
+  > 실제 작품에서는 Dog로 코딩할 예정이다
