@@ -16,7 +16,7 @@ Pytorch_YOLO
 
 - **Pytorch**와 [**Yolov3**](https://pjreddie.com/media/files/papers/YOLOv3.pdf)를 이용한 **Object_Detection**(객체 검출)
 
-- 사물을 인식한 뒤, 그 중 개(dog)가 인식되면 반응하도록 구현(**존재 유무 판단 중심**)
+- 사물을 인식한 뒤, 그 중 **개(dog)**가 인식되면 반응하도록 구현(**존재 유무 판단 중심**)
 
   ###### [ Detection Example ]
 
@@ -391,4 +391,4 @@ Pytorch_YOLO
 
   또 특정 사물(현재는 **remote**)(왜인지는 모르겠지만, 다른 마우스와 달리 나의 마우스는 **remote**로 인식을 함)을 코딩하면, `Detect------Detect-----....`가 출력이 되는 것을 볼 수 있다.
 
-  > 실제 작품에서는 Dog로 코딩할 예정이다
+  > 실제 작품에서는 **Dog**에 반응하도록 코딩할 예정이다
