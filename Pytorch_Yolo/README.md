@@ -16,7 +16,7 @@
 
 - **Pytorch**와 [**Yolov3**](https://pjreddie.com/media/files/papers/YOLOv3.pdf)를 이용한 **Object_Detection**(객체 검출)
 
-- 사물을 인식한 뒤, 그 중 **개(dog)**가 인식되면 반응하도록 구현(**존재 유무 판단 중심**)
+- 사물을 인식한 뒤, 그 중 __개(dog)__가 인식되면 반응하도록 구현(**존재 유무 판단 중심**)
 
   ###### [ Detection Example ]
 
