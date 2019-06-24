@@ -39,11 +39,11 @@
 
   - > **pip**는 파이썬으로 작성된 패키지 소프트웨어를 설치 · 관리하는 패키지 관리 시스템이다.
 
-  - Anaconda Prompt를 실행한다
+  - **Anaconda Prompt를 실행한다**
 
     ![pip_1](./images/pip_1.png)
 
-  - 가상환경 활성화/비활성화
+  - **가상환경 활성화/비활성화**
 
     ```shell
     (base)C:\Users\(username)> conda activate (가상환경 이름)
@@ -51,7 +51,7 @@
 
     `conda activate`를 통해 설치 되어있는 Pytorch가 설치된 가상환경에 접속한 다.
 
-  - pip install
+  - **pip install**
 
     ```shell
     (testVenv)C:\Users\(username)> pip install opencv-python matplotlib pandas
@@ -73,7 +73,7 @@
 
     ![pip_4](./images/pip_4.png)
 
-- 설치확인
+- ##### 설치확인
 
   ```shell
   (testVenv)C:\Users\(username)> pip list

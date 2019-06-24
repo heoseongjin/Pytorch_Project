@@ -75,7 +75,6 @@ def main(args):
             csv.close()
 
 
-'''
     print ('creating negative training set ..')
     idx = 0
     for other_data_folder in urbansound_other_data_folders:
@@ -95,7 +94,7 @@ def main(args):
                             audio[i * SEGMENT_MS: (i + 1) * SEGMENT_MS].export(outfile, format='wav')
                 except:
                     print('failed to load this one ^^^^^')
-'''
+                    
 
 if __name__ == "__main__":
     import argparse
