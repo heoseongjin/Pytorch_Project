@@ -15,9 +15,7 @@
 5. 전처리(Mfcc)
 6. 모델 생성
 7. 학습
-8. 평가
 9. 연속 녹음 구현
-10. 실행
 
 
 
@@ -577,6 +575,35 @@
 
   - **OtherSound 시각화 이미지 저장**
 
+    ```python
+    for file in os.listdir(urbansound_other_graph_folder):
+            filename, extension = os.path.splitext(file)
+            if extension == '.wav':
+                # open sound file
+                audiopath = urbansound_other_graph_folder + os.sep + file
+                print(audiopath)
+    
+                y, sr = librosa.load(audiopath)
+                S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
+    
+                log_S = librosa.amplitude_to_db(S, ref=np.max)
+                fig = plt.figure(figsize=(12, 4))
+                librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
+    
+                plt.title('mel power spectrogram')
+                # plt.colorbar(format = '%+02.0f db')
+                plt.tight_layout()
+    
+                plt.axis('off')
+                plt.xticks([]), plt.yticks([])
+                plt.subplots_adjust(left=0, bottom=0, right=1, top=1, hspace=0, wspace=0)
+    
+                plt.savefig(urbansound_other_graph_mfcc_folder + '/' + filename + '.png')
+                plt.close(fig)
+    ```
+
+    
+
 
 
 - ##### 실행 결과
@@ -587,8 +614,6 @@
 
 - ##### Pytorch Classification 원리
 
-- ##### CNN
-
 - ##### 소스 설명
 
 - ##### 실행
@@ -596,8 +621,6 @@
 
 
 ## 7. 학습
-
-- ##### 학습용 데이터
 
 - ##### 학습
 
@@ -614,10 +637,4 @@
 - ##### PyAudio
 
 - ##### 소스 설명
-
-
-
-## 9. 실행
-
-
 
