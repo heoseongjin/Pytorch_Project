@@ -120,7 +120,7 @@
 
 
 
-설치 사이트 : [Pytorch.org](https://www.pytorch.org)
+설치 사이트 : [Pytorch.org](http://www.pytorch.org)
 
 - ##### 위 사이트에 접속한 뒤, 자신의 환경에 맞게 체크를한다
 
@@ -151,5 +151,5 @@
 
 
 
-​		[Pytorch.org](https://www.pytorch.org) 의 `Run this Command`부분의 명령줄을 복사하여 실행하면 환경에 맞는 **Pytorch가 설치**된다.![pytorch_3](./images/pytorch_3.PNG)
+​		[Pytorch.org](http://www.pytorch.org) 의 `Run this Command`부분의 명령줄을 복사하여 실행하면 환경에 맞는 **Pytorch가 설치**된다.![pytorch_3](./images/pytorch_3.PNG)
 
