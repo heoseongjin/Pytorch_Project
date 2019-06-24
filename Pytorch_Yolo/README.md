@@ -39,7 +39,9 @@
 
   - > **pip**는 파이썬으로 작성된 패키지 소프트웨어를 설치 · 관리하는 패키지 관리 시스템이다.
 
-  - Anaconda Prompt를 실행한다![pip_1](./images/pip_1.png)
+  - Anaconda Prompt를 실행한다
+
+    ![pip_1](./images/pip_1.png)
 
   - 가상환경 활성화/비활성화
 
