@@ -1,15 +1,14 @@
 # Pytorch_YOLO
 
-##### `Pytorch`, `Yolov3`, `Python=3.6`, `Windows10`, `Object_Detection`
+##### `#Pytorch`, `#Yolov3`, `#Python=3.6`, `#Windows10`, `#Object_Detection`
 
 ## Index
 
 1. 개요
 2. **라이브러리** 설치
-3. 소스 다운로드
-4. 소스 수정
-5. **Yolov3** 다운로드
-6. 실행
+3. 소스 설명
+4. **Yolov3** 다운로드
+5. 실행
 
 
 
@@ -17,7 +16,7 @@
 
 - **Pytorch**와 [**Yolov3**](https://pjreddie.com/media/files/papers/YOLOv3.pdf)를 이용한 **Object_Detection**(객체 검출)
 
-- 사물을 인식한 뒤, 그 중 개(dog)가 인식되면 반응하도록 구현(존재 유무 판단 중심)
+- 사물을 인식한 뒤, 그 중 개(dog)가 인식되면 반응하도록 구현(**존재 유무 판단 중심**)
 
   ###### [ Detection Example ]
 
@@ -27,19 +26,21 @@
 
 ## 라이브러리 설치
 
+pytorch
 
+opencv-python
 
-## 소스 다운로드
+matplotlib
 
+pandas
 
-
-## 소스 수정
+## 소스 설명
 
 
 
 ## Yolov3 다운로드
 
-
+ [Yolov3 Download](https://pjreddie.com/media/files/yolov3.weights)
 
 ## 실행
 
