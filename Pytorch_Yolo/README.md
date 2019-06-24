@@ -1,6 +1,6 @@
 # Pytorch_YOLO
 
-##### `#Pytorch`, `#Yolov3`, `#Python=3.6`, `#Windows10`, `#Object_Detection`
+##### `Pytorch`, `Yolov3`, `Python=3.6`, `Windows10`, `Object_Detection`
 
 ## Index
 
@@ -26,13 +26,36 @@
 
 ## 라이브러리 설치
 
-pytorch
+- ##### 설치해야할 라이브러리
 
-opencv-python
+  - **pytorch**(이미 상위 폴더의 [README](https://github.com/deongjin/Pytorch_Project/blob/master/README.md)에서 설치함)
+  - **opencv-python**(OpenCV는 `오픈 소스 컴퓨터 비전 라이브러리`로,  `객체ㆍ얼굴ㆍ행동 인식`, `독순`, `모션 추적` 등의 응용 프로그램에서 사용)
+  - **matplotlib**(시각화 라이브러리)
+  - **pandas**(Python Data Analysis Library, 데이터 분석 라이브러리)
 
-matplotlib
+  
 
-pandas
+- ##### PIP를 이용한 라이브러리 설치
+
+  - > **pip**는 파이썬으로 작성된 패키지 소프트웨어를 설치 · 관리하는 패키지 관리 시스템이다.
+
+  - Anaconda Prompt를 실행한다![pip_1](./images/pip_1.png)
+
+  - 가상환경 활성화/비활성화
+
+    ```shell
+    (base)C:\Users\(username)> conda activate (가상환경 이름)
+    ```
+
+    `conda activate`를 통해 설치 되어있는 Pytorch가 설치된 가상환경에 접속한 다.
+
+  - pip install
+
+    ```shell
+    (testVenv)C:\Users\(username)> pip install opencv-python matplotlib pandas
+    ```
+
+    
 
 ## 소스 설명
 
