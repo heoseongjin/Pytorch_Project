@@ -21,7 +21,8 @@
 
 ## 1. 개요
 
-
+- **Pytorch의 CNN**, **Librosa**와 **PyAudio**를 통한 **Audio_Classification**(소리 구별)
+- 
 
 ## 2. 라이브러리 설치
 
