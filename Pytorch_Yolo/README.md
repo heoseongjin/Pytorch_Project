@@ -1,4 +1,4 @@
-# Pytorch_YOLO
+Pytorch_YOLO
 
 ##### `Pytorch`, `Yolov3`, `Python=3.6`, `Windows10`, `Object_Detection`
 
@@ -353,3 +353,6 @@
 
 ## 5. 실행
 
+- ##### [[ 2.라이브러리 설치 ] 참고](2. 라이브러리 설치)
+
+- ##### 실행
