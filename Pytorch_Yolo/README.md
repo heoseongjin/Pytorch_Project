@@ -43,13 +43,13 @@
 
     ![pip_1](./images/pip_1.png)
 
-  - **가상환경 활성화/비활성화**
+  - **가상환경 활성화**
 
     ```shell
     (base)C:\Users\(username)> conda activate (가상환경 이름)
     ```
 
-    `conda activate`를 통해 설치 되어있는 Pytorch가 설치된 가상환경에 접속한 다.
+    `conda activate`를 통해 설치 되어있는 Pytorch가 설치된 가상환경에 접속한다.
 
   - **pip install**
 

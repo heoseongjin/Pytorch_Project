@@ -23,7 +23,7 @@ def main(args):
     if not os.path.exists(urbansound_other_graph_mfcc_folder):
         os.mkdir(urbansound_other_graph_mfcc_folder)
 
-    '''
+
     for file in os.listdir(urbansound_dogbark_graph_folder):
         filename, extension = os.path.splitext(file)
         
@@ -49,8 +49,7 @@ def main(args):
 
             plt.savefig(urbansound_dogbark_graph_mfcc_folder + '/' + filename + '.png')
             plt.close(fig)
-    '''
-    '''
+
     for file in os.listdir(urbansound_other_graph_folder):
         filename, extension = os.path.splitext(file)
         if extension == '.wav':
@@ -75,7 +74,7 @@ def main(args):
 
             plt.savefig(urbansound_other_graph_mfcc_folder + '/' + filename + '.png')
             plt.close(fig)
-    '''
+
 
     index = 0
 

@@ -94,7 +94,7 @@ def main(args):
                             audio[i * SEGMENT_MS: (i + 1) * SEGMENT_MS].export(outfile, format='wav')
                 except:
                     print('failed to load this one ^^^^^')
-                    
+
 
 if __name__ == "__main__":
     import argparse
