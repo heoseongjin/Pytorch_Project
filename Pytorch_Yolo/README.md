@@ -201,68 +201,67 @@
     if __name__ == '__main__':
         ####
         dog_exist = 0
-        cfgfile = "cfg/yolov3.cfg"                      #config파일 선언
-        weightsfile = "yolov3.weights"                  #weight파일 선언
-        num_classes = 80                                #class개수 정의
+        cfgfile = "cfg/yolov3.cfg"  # config파일 선언
+        weightsfile = "yolov3.weights"  # weight파일 선언
+        num_classes = 80  # class개수 정의
     
-        args = arg_parse()                              #argparse를 이용해 명령행을 파싱해오도록 함수 실행
-        confidence = float(args.confidence)             #confidence 변수에 --confidence값을 할당
-        nms_thesh = float(args.nms_thresh)              #이것도 --nms_thresh값 할당
-        start = 0                                       #start는 0
-        CUDA = torch.cuda.is_available()                #cuda가 사용가능한 상황인지
+        args = arg_parse()  # argparse를 이용해 명령행을 파싱해오도록 함수 실행
+        confidence = float(args.confidence)  # confidence 변수에 --confidence값을 할당
+        nms_thesh = float(args.nms_thresh)  # 이것도 --nms_thresh값 할당
+        start = 0  # start는 0
+        CUDA = torch.cuda.is_available()  # cuda가 사용가능한 상황인지
     
-        num_classes = 80                                #암튼 80
-        bbox_attrs = 5 + num_classes                    #Bouding Box 속성
-        
-        model = Darknet(cfgfile)                        #Darknet
-        model.load_weights(weightsfile)                 #Model에 weighs파일을 load해준다
-        
+        num_classes = 80  # 클래스의 개수가 80개
+        bbox_attrs = 5 + num_classes  # Bouding Box 속성
+    
+        model = Darknet(cfgfile)  # Darknet
+        model.load_weights(weightsfile)  # Model에 weighs파일을 load해준다
+    
         model.net_info["height"] = args.reso
         inp_dim = int(model.net_info["height"])
-        
-        assert inp_dim % 32 == 0 
+    
+        assert inp_dim % 32 == 0
         assert inp_dim > 32
     
         if CUDA:
-            model.cuda()                                #Cuda를 사용중이면 model.cuda()
-                
-        model.eval()                                    #모델 평가?
-        
-        videofile = 'video.avi'                         #videofile이름
-        
-        cap = cv2.VideoCapture(0)                       #videoCapture(0) >> video 캡쳐변수 선언
-        
-        assert cap.isOpened(), 'Cannot capture source'
-        #assert는 가정설정문, 뒤의 조건이 True가 아니면 AssertError를 발생시킨다.
-        
-        frames = 0
-        #frame 변수 선언, 초기값은 0
+            model.cuda()  # Cuda를 사용중이면 model.cuda()
     
-        start = time.time()                             #시간을 측정해주는 함수
-        while cap.isOpened():                           #cap이 초기화가 잘 되어 있는지 확인
-            
+        model.eval()  # 모델 평가함수
+    
+        videofile = 'video.avi'  # videofile이름
+    
+        cap = cv2.VideoCapture(0)  # videoCapture(0) >> video 캡쳐변수 선언
+    
+        assert cap.isOpened(), 'Cannot capture source'
+        # assert는 가정설정문, 뒤의 조건이 True가 아니면 AssertError를 발생시킨다.
+    
+        frames = 0
+        # frame 변수 선언, 초기값은 0
+    
+        start = time.time()  # 시간을 측정해주는 함수
+        while cap.isOpened():  # cap이 초기화가 잘 되어 있는지 확인
+    
             ret, frame = cap.read()
             origin_frame = frame
     
             ####
             frame = cv2.flip(frame, 1)
-            #cap.read()는 재생되는 비디오의 한 프레임씩 읽는다.
-            #제대로 읽었다면 ret값이 True가 되고, 실패하면 False.
-            #읽은 프레임은 frame이다.
+            # cap.read()는 재생되는 비디오의 한 프레임씩 읽는다.
+            # 제대로 읽었다면 ret값이 True가 되고, 실패하면 False.
+            # 읽은 프레임은 frame이다.
     
-            if ret:                                     #ret이 true라면, 제대로 읽었다면
-                
+            if ret:  # ret이 true라면, 제대로 읽었다면
+    
                 img, orig_im, dim = prep_image(frame, inp_dim)
-                #
-                
-    #            im_dim = torch.FloatTensor(dim).repeat(1,2)                        
+    
+                # im_dim = torch.FloatTensor(dim).repeat(1,2)
     
                 if CUDA:
                     im_dim = im_dim.cuda()
                     img = img.cuda()
     
                 output = model(Variable(img), CUDA)
-                output = write_results(output, confidence, num_classes, nms = True, nms_conf = nms_thesh)
+                output = write_results(output, confidence, num_classes, nms=True, nms_conf=nms_thesh)
     
                 if type(output) == int:
                     frames += 1
@@ -273,20 +272,20 @@
                         break
                     continue
     
-                output[:, 1:5] = torch.clamp(output[:, 1:5], 0.0, float(inp_dim))/inp_dim
-                
-    #            im_dim = im_dim.repeat(output.size(0), 1)
+                output[:, 1:5] = torch.clamp(output[:, 1:5], 0.0, float(inp_dim)) / inp_dim
+    
+                # im_dim = im_dim.repeat(output.size(0), 1)
                 output[:, [1, 3]] *= frame.shape[1]
                 output[:, [2, 4]] *= frame.shape[0]
     
-                classes = load_classes('data/coco.names')
-                colors = pkl.load(open("pallete", "rb"))
+                classes = load_classes('data/coco.names')       #coco.names로부터 class의 이름을 불러온다
+                colors = pkl.load(open("pallete", "rb"))        #pallete로부터 색깔을 불러온다.
     
                 label_list = list()
     
                 list(map(lambda x: write(x, orig_im), output))
     
-                ####
+                ####검출을 알려주는 소스
                 if label_list.count('remote') >= 1:
                     dog_exist = 1
                 else:
@@ -297,6 +296,7 @@
                     cv2.imwrite('remote.jpg', origin_frame)
                 ####
     
+    
                 cv2.imshow("frame", orig_im)
     
                 key = cv2.waitKey(1)
@@ -304,68 +304,52 @@
                     break
                 frames += 1
                 print("FPS of the video is {:5.2f}".format(frames / (time.time() - start)))
+                #소요시간을 time을 사용해서 FPS를 출력
     
             else:
-                break
+            break
     ```
-
     
+    특히 88열부터 97열까지의 소스는 직접 작성한 소스로, **Object_Detection**을 통해 인식된 Object들을 배열로 담아 그 중에 개(혹은 특정 Object)가 검출됬는지 판단, 알려주는 부분이다. 
+    
+    
+    
+    ###### [검출소스]
+    
+    ```python
+    if label_list.count('remote') >= 1:
+    	dog_exist = 1
+    else:
+    	dog_exist = 0
+    
+    if dog_exist == 1:
+    	print("Detect--------Detect--------Detect--------Detect--------Detect")
+    cv2.imwrite('remote.jpg', origin_frame)
+    ```
+    
+    위의 `write`함수에서 선언 된 `label_list`에 현재 검출된 **Object**이름들을 담는다.
+    
+    ```python
+    global label_list
+    label_list.append(label)	##.append는 리스트에 Object이름들을 추가한다
+    ```
+    
+    `label_list` 리스트 가운데 **dog**(현재는 remote)가 하나 이상 있다면, 검출된 것이기 때문에 검출됨을 나타내는 `Detect-------Detect`를 출력하도록 작성했다. 
+    
+    더불어, `cv2.imwrite('사진이름',origin_frame)`을 통해 검출될 때의 순간을 캡쳐할 수 있는 기능까지 구현했다.
 
 ## 4. Yolov3 다운로드
 
- [Yolov3 Download](https://pjreddie.com/media/files/yolov3.weights)
+> **YOLO** = You Only Look Once
+>
+> **Object_Detection**에서 자주 사용되는, 개발자 **Joseph Redmon**가 개발한 딥러닝 오픈소스
+
+![yolo_1](./images/yolo_1.png)
+
+
+
+- [Yolov3 Download](https://pjreddie.com/media/files/yolov3.weights)에 접속하여 `Yolov3.weight`를 설치한다.
+- 설치한 `Yolov3.weight` 파일을 `Pytorch_Project/Pytorch_Yolo/`경로에 위치시킨다.
 
 ## 5. 실행
-
-
-
-
-
-### On single or multiple images
-
-Clone, and `cd` into the repo directory. The first thing you need to do is to get the weights file
-This time around, for v3, authors has supplied a weightsfile only for COCO [here](https://pjreddie.com/media/files/yolov3.weights), and place 
-
-the weights file into your repo directory. Or, you could just type (if you're on Linux)
-
-```
-wget https://pjreddie.com/media/files/yolov3.weights 
-python detect.py --images imgs --det det 
-```
-
-`--images` flag defines the directory to load images from, or a single image file (it will figure it out), and `--det` is the directory
-to save images to. Other setting such as batch size (using `--bs` flag) , object threshold confidence can be tweaked with flags that can be looked up with. 
-
-```
-python detect.py -h
-```
-
-### Speed Accuracy Tradeoff
-
-You can change the resolutions of the input image by the `--reso` flag. The default value is 416. Whatever value you chose, rememeber **it should be a multiple of 32 and greater than 32**. Weird things will happen if you don't. You've been warned. 
-
-```
-python detect.py --images imgs --det det --reso 320
-```
-
-### On a Camera
-
-Same as video module, but you don't have to specify the video file since feed will be taken from your camera. To be precise, 
-feed will be taken from what the OpenCV, recognises as camera 0. The default image resolution is 160 here, though you can change it with `reso` flag.
-
-```
-python cam_demo.py
-```
-
-You can easily tweak the code to use different weightsfiles, available at [yolo website](https://pjreddie.com/darknet/yolo/)
-
-NOTE: The scales features has been disabled for better refactoring.
-
-### Detection across different scales
-
-YOLO v3 makes detections across different scales, each of which deputise in detecting objects of different sizes depending upon whether they capture coarse features, fine grained features or something between. You can experiment with these scales by the `--scales` flag. 
-
-```
-python detect.py --scales 1,3
-```
 
