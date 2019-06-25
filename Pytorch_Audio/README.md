@@ -13,9 +13,6 @@
 3. 데이터셋(UrbanSound) 다운로드
 4. 전처리(1초 분할)
 5. 전처리(Mfcc)
-6. 모델 생성
-7. 학습
-9. 연속 녹음 구현
 
 
 
@@ -394,7 +391,7 @@
 - ##### 실행 결과
 
   ```shell
-  (testVenv)d:\Pytorch_Audio>python audio_preprocess --urbansound_dir UrbanSound
+  (testVenv)d:\Pytorch_Audio>python audio_preprocess.py --urbansound_dir UrbanSound
   ```
   
   위의 명령어를 입력하면 다음과 같이 전처리가 진행된다.
@@ -571,7 +568,19 @@
                 plt.close(fig)
     ```
 
-    
+    1초 단위로 전처리된 `.wav`파일들을 `librosa`라이브러리를 이용해 분석한다.
+
+    `librosa.feature.melspectrogram`으로 그래프 변환하고,
+
+    `matplotlib`를 사용해 시각화한다.
+
+    그 후 `.savefig`를 통해 폴더에 `.png`파일로 저장한다.
+
+    특히 `plt.subplots_adjust(left=0, bottom=0, right=1, top=1, hspace=0, wspace=0)` 부분은 이미지에서 불필요한 부분을 제거하여 오직 스펙트럼이미지만 나오도록 하는 것이다.
+
+  		###### [Example Image]
+
+  ![569_dogbark](images/569_dogbark.png)
 
   - **OtherSound 시각화 이미지 저장**
 
@@ -602,39 +611,21 @@
                 plt.close(fig)
     ```
 
-    
+    위의 `DogSound 시각화 이미지 저장`과 유사하다.
 
+    ###### [Example Image]
 
+  ![27_other](images/27_other.png)
 
 - ##### 실행 결과
 
+  ```shell
+  (testVenv)d:\Pytorch_Audio>python audio_mfcc.py --urbansound_dir UrbanSound
+  ```
+
+  위의 명령어를 입력하면 다음과 같이 **전처리**가 동작된다.
+
+  ![1561420019051](images/1561420019051.png)
 
 
-## 6. 모델 생성
-
-- ##### Pytorch Classification 원리
-
-- ##### 소스 설명
-
-- ##### 실행
-
-
-
-## 7. 학습
-
-- ##### 학습
-
-- ##### 모델 저장
-
-- ##### 평가(Evaluation)
-
-  
-
-
-
-## 8. 연속 녹음 구현
-
-- ##### PyAudio
-
-- ##### 소스 설명
 
